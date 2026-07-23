@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(xargs ls -la)",
+      "Bash(sips -g pixelWidth -g pixelHeight /Users/arianawhite/Documents/Wedding/wedding-site-2/assets/2017.jpg)",
+      "Bash(sips -g pixelWidth -g pixelHeight /Users/arianawhite/Documents/Wedding/wedding-site-2/assets/2019.jpg)",
+      "Bash(sips -g pixelWidth -g pixelHeight /Users/arianawhite/Documents/Wedding/wedding-site-2/assets/2022.jpg)",
+      "Bash(sips -g pixelWidth -g pixelHeight /Users/arianawhite/Documents/Wedding/wedding-site-2/assets/2023.jpg)",
+      "Bash(sips -g pixelWidth -g pixelHeight \"/Users/arianawhite/Documents/Wedding/wedding-site-2/assets/lake-como-03-17-2025-proposal-3_original.jpeg\")",
+      "Bash(sips -g pixelWidth -g pixelHeight \"/Users/arianawhite/Documents/Wedding/wedding-site-2/assets/next chapter.jpg\")",
+      "Bash(shasum -a 256)",
+      "Bash(awk '{print $1}')"
+    ]
+  }
+}

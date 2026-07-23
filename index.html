@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ariana & James — June 5, 2027</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Bellefair&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    #auth-gate {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background: var(--cream);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }
+    #auth-box {
+      text-align: center;
+      padding: 48px 40px;
+      max-width: 360px;
+      width: 100%;
+    }
+    #auth-box .auth-names {
+      font-family: 'Pinyon Script', cursive;
+      font-size: 3.2rem;
+      color: var(--gold);
+      display: block;
+      margin-bottom: 6px;
+    }
+    #auth-box .auth-date {
+      font-size: 0.72rem;
+      letter-spacing: 0.26em;
+      text-transform: uppercase;
+      color: var(--light);
+      margin-bottom: 36px;
+      display: block;
+    }
+    #auth-form {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    #auth-input {
+      width: 100%;
+      padding: 12px 16px;
+      border: 1px solid rgba(184,154,110,0.4);
+      background: var(--warm-white);
+      color: var(--deep);
+      font-family: 'Bellefair', serif;
+      font-size: 1rem;
+      text-align: center;
+      letter-spacing: 0.12em;
+      outline: none;
+      border-radius: 2px;
+      -webkit-font-smoothing: antialiased;
+    }
+    #auth-input:focus { border-color: var(--gold); }
+    #auth-input::placeholder { color: var(--light); letter-spacing: 0.12em; }
+    #auth-submit {
+      width: 100%;
+      padding: 11px;
+      background: transparent;
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      font-family: 'Bellefair', serif;
+      font-size: 0.75rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.25s, color 0.25s;
+      border-radius: 2px;
+    }
+    #auth-submit:hover { background: var(--gold); color: #fff; }
+    #auth-error {
+      font-size: 0.78rem;
+      color: var(--dusty-rose);
+      letter-spacing: 0.06em;
+      min-height: 1.2em;
+    }
+    @keyframes authShake {
+      0%,100% { transform: translateX(0); }
+      25%      { transform: translateX(-6px); }
+      75%      { transform: translateX(6px); }
+    }
+    #auth-error:not(:empty) { animation: authShake 0.3s ease; }
+  </style>
+</head>
+<body spellcheck="false">
+
+  <!-- ─── AUTH GATE ─── -->
+  <div id="auth-gate">
+    <div id="auth-box">
+      <span class="auth-names">Ariana<br>&amp;<br>James</span>
+      <span class="auth-date">June 5, 2027</span>
+      <form id="auth-form" autocomplete="off">
+        <input type="password" id="auth-input" placeholder="Password" autocomplete="current-password">
+        <button type="submit" id="auth-submit">Enter</button>
+        <p id="auth-error"></p>
+      </form>
+    </div>
+  </div>
+
+  <!-- ─── NAVIGATION ─── -->
+  <nav id="mainNav">
+    <a class="nav-logo" onclick="goTo('')">A &amp; J</a>
+    <ul class="nav-links">
+      <li><a onclick="goTo('')"         data-route="home">Home</a></li>
+      <li><a onclick="goTo('schedule')" data-route="schedule">Schedule</a></li>
+      <li><a onclick="goTo('travel')"   data-route="travel">Travel</a></li>
+      <!-- <li><a onclick="goTo('registry')" data-route="registry">Registry</a></li> -->
+      <li><a onclick="goTo('story')"    data-route="story">Our Story</a></li>
+      <li><a onclick="goTo('todo')"     data-route="todo">Things to Do</a></li>
+      <li><a onclick="goTo('faqs')"     data-route="faqs">FAQs</a></li>
+    </ul>
+    <button class="hamburger" onclick="toggleMenu()" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- ─── MOBILE MENU ─── -->
+  <div class="mobile-menu" id="mobileMenu">
+    <button class="mobile-close" onclick="toggleMenu()">✕</button>
+    <a onclick="goTo('')">Home</a>
+    <a onclick="goTo('schedule')">Schedule</a>
+    <a onclick="goTo('travel')">Travel</a>
+    <!-- <a onclick="goTo('registry')">Registry</a> -->
+    <a onclick="goTo('story')">Our Story</a>
+    <a onclick="goTo('todo')">Things to Do</a>
+    <a onclick="goTo('faqs')">FAQs</a>
+  </div>
+
+  <!-- ─── PAGE CONTENT (router injects here) ─── -->
+  <main id="main-content"></main>
+
+  <!-- ─── FOOTER ─── -->
+  <footer>
+    <span class="footer-names">Ariana &amp; James</span>
+    June 5, 2027 · The Baltimore Museum of Art · Baltimore, MD
+  </footer>
+
+  <script src="js/auth.js"></script>
+  <script src="js/router.js"></script>
+</body>
+</html>

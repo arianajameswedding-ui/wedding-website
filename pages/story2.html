@@ -1,0 +1,480 @@
+<!-- pages/story.html -->
+<style>
+
+  /* ─── VIDEO SECTION ─── */
+  .story-video-section {
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 60px 32px 0;
+  }
+  .story-video-eyebrow {
+    text-align: center;
+    margin-bottom: 28px;
+  }
+  .video-upload-area {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background: var(--warm-white);
+    border: 1.5px dashed rgba(184,154,110,0.5);
+    border-radius: 3px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    cursor: pointer;
+    transition: border-color 0.2s, background 0.2s;
+    overflow: hidden;
+  }
+  .video-upload-area:hover {
+    border-color: var(--gold);
+    background: #fdf6ee;
+  }
+  .video-upload-area.has-video {
+    border-style: solid;
+    cursor: default;
+  }
+  .video-upload-icon {
+    width: 56px; height: 56px;
+    border-radius: 50%;
+    background: rgba(184,154,110,0.12);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.5rem;
+  }
+  .video-upload-label {
+    font-size: 0.9rem;
+    color: var(--mid);
+    text-align: center;
+    line-height: 1.6;
+  }
+  .video-upload-label strong {
+    display: block;
+    font-size: 1rem;
+    color: var(--deep);
+    margin-bottom: 2px;
+  }
+  .video-upload-label span {
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    color: var(--light);
+  }
+  .video-upload-btn {
+    font-family: 'Bellefair', serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    background: none;
+    padding: 9px 22px;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+  }
+  .video-upload-btn:hover { background: var(--gold); color: #fff; }
+  #video-file-input { display: none; }
+  .video-player {
+    display: none;
+    width: 100%; height: 100%;
+    object-fit: contain;
+    background: #000;
+  }
+  .video-player.visible { display: block; }
+  .video-remove-btn {
+    display: none;
+    position: absolute;
+    top: 12px; right: 12px;
+    background: rgba(42,36,32,0.72);
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    width: 32px; height: 32px;
+    font-size: 0.95rem;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+    transition: background 0.2s;
+    z-index: 2;
+  }
+  .video-remove-btn:hover { background: rgba(42,36,32,0.95); }
+  .video-remove-btn.visible { display: flex; }
+  .video-caption {
+    font-size: 0.76rem;
+    color: var(--light);
+    text-align: center;
+    letter-spacing: 0.08em;
+    margin-top: 12px;
+  }
+
+  /* ─── SECTION DIVIDER ─── */
+  .story-divider {
+    max-width: 820px;
+    margin: 56px auto 0;
+    padding: 0 32px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  .story-divider-line {
+    flex: 1; height: 1px;
+    background: rgba(184,154,110,0.25);
+  }
+  .story-divider-script {
+    font-family: 'Pinyon Script', cursive;
+    font-size: 1.8rem;
+    color: var(--gold-light);
+    white-space: nowrap;
+  }
+
+  /* ─── TIMELINE ─── */
+  .timeline-wrap {
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 48px 32px 100px;
+  }
+  .story-entry {
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    gap: 0 32px;
+    margin-bottom: 56px;
+    position: relative;
+  }
+  .story-entry::before {
+    content: '';
+    position: absolute;
+    left: 49px; top: 32px; bottom: -56px;
+    width: 1px;
+    background: rgba(184,154,110,0.28);
+  }
+  .story-entry:last-child::before { display: none; }
+  .story-year {
+    font-family: 'Pinyon Script', cursive;
+    font-size: 1.4rem;
+    color: var(--gold);
+    text-align: right;
+    padding-top: 2px;
+    position: relative;
+  }
+  .story-year::after {
+    content: '';
+    position: absolute;
+    right: -20px; top: 10px;
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--gold);
+    border: 2px solid var(--cream);
+    box-shadow: 0 0 0 1px var(--gold);
+  }
+  .story-text h3 { font-size: 1.05rem; color: var(--deep); margin-bottom: 6px; }
+  .story-text p  { font-size: 0.93rem; color: var(--mid); line-height: 1.8; }
+
+  /* ─── PHOTO GRID ─── */
+  .story-photos {
+    margin-top: 16px;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .photo-slot {
+    position: relative;
+    width: 116px;
+    height: 88px;
+    border: 1.5px dashed rgba(184,154,110,0.45);
+    border-radius: 2px;
+    background: var(--warm-white);
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    overflow: hidden;
+    transition: border-color 0.2s, background 0.2s;
+    flex-shrink: 0;
+  }
+  .photo-slot:hover { border-color: var(--gold); background: #fdf6ee; }
+  .photo-slot.filled  { border-style: solid; border-color: rgba(184,154,110,0.3); cursor: default; }
+  .photo-slot-icon    { font-size: 1rem; color: var(--gold-light); }
+  .photo-slot-label   { font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--light); }
+  .photo-slot img     { display: none; position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .photo-slot.filled img { display: block; }
+  .photo-slot img.visible { display: block; }
+  .photo-slot-remove  {
+    display: none;
+    position: absolute;
+    top: 4px; right: 4px;
+    background: rgba(42,36,32,0.68);
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    width: 20px; height: 20px;
+    font-size: 0.65rem;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+  }
+  .photo-slot-remove.visible { display: flex; }
+  .photo-input { display: none; }
+
+  @media (max-width: 700px) {
+    .story-entry           { grid-template-columns: 72px 1fr; gap: 0 20px; }
+    .story-entry::before   { left: 35px; }
+    .story-year::after     { right: -14px; }
+    .photo-slot            { width: 90px; height: 68px; }
+    .story-video-section,
+    .story-divider,
+    .timeline-wrap         { padding-left: 20px; padding-right: 20px; }
+  }
+</style>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <p class="section-eyebrow">How It All Began</p>
+  <div class="display-script">Our Story</div>
+  <p class="body-text">A love story written across cities, seasons, and one magical proposal on the shores of Lake Como.</p>
+</div>
+
+<!-- VIDEO SECTION -->
+<section class="story-video-section">
+  <div class="story-video-eyebrow">
+    <p class="section-eyebrow">Watch Our Story</p>
+  </div>
+  <div class="video-upload-area" id="videoDropZone" onclick="document.getElementById('video-file-input').click()">
+    <div class="video-upload-icon">🎬</div>
+    <div class="video-upload-label">
+      <strong>Upload your video</strong>
+      Click to browse or drag &amp; drop<br>
+      <span>MP4 · MOV · WebM — up to 500MB</span>
+    </div>
+    <button class="video-upload-btn" onclick="event.stopPropagation(); document.getElementById('video-file-input').click()">Choose File</button>
+    <video class="video-player" id="videoPlayer" controls></video>
+    <button class="video-remove-btn" id="videoRemoveBtn" onclick="event.stopPropagation(); removeVideo()" title="Remove video">✕</button>
+  </div>
+  <input type="file" id="video-file-input" accept="video/*" onchange="handleVideoUpload(event)">
+  <p class="video-caption">Video plays locally in the browser — nothing is uploaded to any server.</p>
+</section>
+
+<!-- DIVIDER -->
+<div class="story-divider">
+  <div class="story-divider-line"></div>
+  <div class="story-divider-script">Our Timeline</div>
+  <div class="story-divider-line"></div>
+</div>
+
+<!-- TIMELINE -->
+<div class="timeline-wrap">
+
+  <!-- 2019 -->
+  <div class="story-entry">
+    <div class="story-year">2019</div>
+    <div class="story-text">
+      <h3>The Beginning</h3>
+      <p>We met at a mutual friend's dinner party in New York City on a snowy November evening. James was running late; Ariana almost didn't go. Funny how things work out.</p>
+      <div class="story-photos" data-entry="0">
+        <div class="photo-slot filled">
+          <img src="assets/hero.jpg" alt="The proposal" style="display:block; width:100%; height:100%; object-fit:cover;"/>
+        </div>
+    </div>
+  </div>
+
+  <!-- 2020 -->
+  <div class="story-entry">
+    <div class="story-year">2020</div>
+    <div class="story-text">
+      <h3>Falling in Love</h3>
+      <p>A year of long walks, long phone calls, and discovering that home is less a place and more a person. We made it through the hardest year with each other to lean on.</p>
+      <div class="story-photos" data-entry="1">
+        <div class="photo-slot" onclick="triggerPhotoUpload(1, this)">
+          <div class="photo-slot-icon">＋</div>
+          <div class="photo-slot-label">Add photo</div>
+          <img alt=""><button class="photo-slot-remove" onclick="event.stopPropagation();removePhoto(this)">✕</button>
+        </div>
+      </div>
+      <input type="file" class="photo-input" accept="image/*" multiple onchange="handlePhotoUpload(event,1)">
+    </div>
+  </div>
+
+  <!-- 2022 -->
+  <div class="story-entry">
+    <div class="story-year">2022</div>
+    <div class="story-text">
+      <h3>Moving In Together</h3>
+      <p>We found our apartment in Brooklyn, argued about bookshelf organization, and adopted a cat named Biscotto. Life became very good.</p>
+      <div class="story-photos" data-entry="2">
+        <div class="photo-slot" onclick="triggerPhotoUpload(2, this)">
+          <div class="photo-slot-icon">＋</div>
+          <div class="photo-slot-label">Add photo</div>
+          <img alt=""><button class="photo-slot-remove" onclick="event.stopPropagation();removePhoto(this)">✕</button>
+        </div>
+      </div>
+      <input type="file" class="photo-input" accept="image/*" multiple onchange="handlePhotoUpload(event,2)">
+    </div>
+  </div>
+
+  <!-- 2024 -->
+  <div class="story-entry">
+    <div class="story-year">2024</div>
+    <div class="story-text">
+      <h3>Travels &amp; Adventures</h3>
+      <p>Portugal, Japan, the Scottish Highlands — we discovered we travel beautifully together, which, we decided, was a very good sign.</p>
+      <div class="story-photos" data-entry="3">
+        <div class="photo-slot" onclick="triggerPhotoUpload(3, this)">
+          <div class="photo-slot-icon">＋</div>
+          <div class="photo-slot-label">Add photo</div>
+          <img alt=""><button class="photo-slot-remove" onclick="event.stopPropagation();removePhoto(this)">✕</button>
+        </div>
+      </div>
+      <input type="file" class="photo-input" accept="image/*" multiple onchange="handlePhotoUpload(event,3)">
+    </div>
+  </div>
+
+  <!-- March 2025 -->
+  <div class="story-entry">
+    <div class="story-year">March 2025</div>
+    <div class="story-text">
+      <h3>The Proposal</h3>
+      <p>On a warm March morning on the balustrade at Lake Como, with the Alps reflected in the still blue water, James got down on one knee. Ariana said yes before he'd finished the sentence.</p>
+      <div class="story-photos" data-entry="4">
+        <div class="photo-slot" onclick="triggerPhotoUpload(4, this)">
+          <div class="photo-slot-icon">＋</div>
+          <div class="photo-slot-label">Add photo</div>
+          <img alt=""><button class="photo-slot-remove" onclick="event.stopPropagation();removePhoto(this)">✕</button>
+        </div>
+      </div>
+      <input type="file" class="photo-input" accept="image/*" multiple onchange="handlePhotoUpload(event,4)">
+    </div>
+  </div>
+
+  <!-- June 2027 -->
+  <div class="story-entry">
+    <div class="story-year">June 2027</div>
+    <div class="story-text">
+      <h3>The Next Chapter</h3>
+      <p>And now we return to the shores that witnessed it all — to say I do, surrounded by everyone we love.</p>
+      <div class="story-photos" data-entry="5">
+        <div class="photo-slot" onclick="triggerPhotoUpload(5, this)">
+          <div class="photo-slot-icon">＋</div>
+          <div class="photo-slot-label">Add photo</div>
+          <img alt=""><button class="photo-slot-remove" onclick="event.stopPropagation();removePhoto(this)">✕</button>
+        </div>
+      </div>
+      <input type="file" class="photo-input" accept="image/*" multiple onchange="handlePhotoUpload(event,5)">
+    </div>
+  </div>
+
+</div><!-- /timeline-wrap -->
+
+<script>
+/* ═══ VIDEO ═══ */
+(function() {
+  const zone   = document.getElementById('videoDropZone');
+  const player = document.getElementById('videoPlayer');
+  const input  = document.getElementById('video-file-input');
+  const removeBtn = document.getElementById('videoRemoveBtn');
+
+  function loadVideo(file) {
+    const url = URL.createObjectURL(file);
+    player.src = url;
+    player.classList.add('visible');
+    removeBtn.classList.add('visible');
+    zone.classList.add('has-video');
+    zone.querySelectorAll('.video-upload-icon,.video-upload-label,.video-upload-btn')
+        .forEach(el => el.style.display = 'none');
+  }
+
+  window.handleVideoUpload = function(e) {
+    const f = e.target.files[0];
+    if (f) loadVideo(f);
+  };
+  window.removeVideo = function() {
+    URL.revokeObjectURL(player.src);
+    player.src = '';
+    player.classList.remove('visible');
+    removeBtn.classList.remove('visible');
+    zone.classList.remove('has-video');
+    zone.querySelectorAll('.video-upload-icon,.video-upload-label,.video-upload-btn')
+        .forEach(el => el.style.display = '');
+    input.value = '';
+  };
+
+  // Drag & drop
+  zone.addEventListener('dragover',  e => { e.preventDefault(); zone.style.borderColor = 'var(--gold)'; });
+  zone.addEventListener('dragleave', () => { zone.style.borderColor = ''; });
+  zone.addEventListener('drop', e => {
+    e.preventDefault();
+    zone.style.borderColor = '';
+    const f = e.dataTransfer.files[0];
+    if (f && f.type.startsWith('video/')) loadVideo(f);
+  });
+})();
+
+/* ═══ PHOTOS ═══ */
+window.triggerPhotoUpload = function(entryIndex, slotEl) {
+  if (slotEl.classList.contains('filled')) return;
+  const grid  = slotEl.closest('.story-photos');
+  const input = grid.nextElementSibling;
+  input.click();
+};
+
+window.handlePhotoUpload = function(e, entryIndex) {
+  const files = Array.from(e.target.files);
+  if (!files.length) return;
+  const grid = document.querySelector(`.story-photos[data-entry="${entryIndex}"]`);
+  files.forEach(file => {
+    const url  = URL.createObjectURL(file);
+    let slot   = grid.querySelector('.photo-slot:not(.filled)');
+    if (!slot)  slot = createSlot(entryIndex);
+    fillSlot(slot, url);
+    grid.appendChild(slot); // move to end if it was floating
+  });
+  ensureEmptySlot(grid, entryIndex);
+  e.target.value = '';
+};
+
+window.removePhoto = function(btn) {
+  const slot = btn.closest('.photo-slot');
+  const img  = slot.querySelector('img');
+  URL.revokeObjectURL(img.src);
+  img.src = ''; img.classList.remove('visible');
+  btn.classList.remove('visible');
+  slot.classList.remove('filled');
+  slot.querySelector('.photo-slot-icon').style.display = '';
+  slot.querySelector('.photo-slot-label').style.display = '';
+  // Clean up extra empty slots
+  const grid = slot.closest('.story-photos');
+  const entryIndex = grid.dataset.entry;
+  const empties = grid.querySelectorAll('.photo-slot:not(.filled)');
+  empties.forEach((s, i) => { if (i > 0) s.remove(); });
+};
+
+function createSlot(entryIndex) {
+  const slot = document.createElement('div');
+  slot.className = 'photo-slot';
+  slot.innerHTML = `
+    <div class="photo-slot-icon">＋</div>
+    <div class="photo-slot-label">Add photo</div>
+    <img alt="">
+    <button class="photo-slot-remove" onclick="event.stopPropagation();removePhoto(this)">✕</button>`;
+  slot.addEventListener('click', () => triggerPhotoUpload(entryIndex, slot));
+  return slot;
+}
+
+function fillSlot(slot, url) {
+  const img = slot.querySelector('img');
+  const rb  = slot.querySelector('.photo-slot-remove');
+  img.src = url; img.classList.add('visible');
+  rb.classList.add('visible');
+  slot.classList.add('filled');
+  slot.querySelector('.photo-slot-icon').style.display  = 'none';
+  slot.querySelector('.photo-slot-label').style.display = 'none';
+}
+
+// function ensureEmptySlot(grid, entryIndex) {
+  if (!grid.querySelector('.photo-slot:not(.filled)')) {
+    const slot = createSlot(entryIndex);
+    grid.appendChild(slot);
+  }
+}
+</script>

@@ -1,0 +1,98 @@
+<!-- pages/schedule.html -->
+<style>
+  .schedule-day { margin-bottom: 52px; }
+  .schedule-day-title {
+    font-family: 'Pinyon Script', cursive;
+    font-size: 2rem;
+    color: var(--gold);
+    margin-bottom: 22px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--blush);
+  }
+  .schedule-event {
+    display: grid;
+    grid-template-columns: 130px 1fr;
+    gap: 0 24px;
+    padding: 20px 0;
+    border-bottom: 1px solid rgba(184,154,110,0.12);
+  }
+  .schedule-event:last-child { border-bottom: none; }
+  .event-time {
+    font-size: 0.78rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--gold);
+    padding-top: 3px;
+  }
+  .event-name { font-size: 1.05rem; color: var(--deep); margin-bottom: 4px; }
+  .event-desc { font-size: 0.88rem; color: var(--light); }
+  .event-desc-long { font-size: 0.88rem; color: var(--deep); }
+
+  @media (max-width: 700px) {
+    .schedule-event { grid-template-columns: 1fr; gap: 4px; }
+    .event-time { margin-bottom: 2px; }
+  }
+</style>
+
+<div class="page-header">
+  <p class="section-eyebrow">Weekend of June 5, 2027</p>
+  <div class="display-script">The Schedule</div>
+  <p class="body-text">Everything you need to know about our wedding weekend.</p>
+</div>
+
+<div class="content-wrap">
+
+  <div class="schedule-day">
+    <div class="schedule-day-title">Friday, June 4th</div>
+    <div class="schedule-event">
+      <div class="event-time"></div>
+      <div>
+        <div class="event-name">Welcome Drinks</div>
+        <div class="event-desc">Details to follow</div>
+      </div>
+    </div>
+    </div>
+  
+
+  <div class="schedule-day">
+    <div class="schedule-day-title">Saturday, June 5th — Wedding Day</div>
+    <div class="schedule-event">
+      <div class="event-time">5:30 PM</div>
+      <div>
+        <div class="event-name">Guest Arrival</div>
+        <div class="event-desc">Shuttle service departs from the hotels. Additional details to come. For those driving, there is ample street parking near the venue.</div>
+      </div>
+    </div>
+    <div class="schedule-event">
+      <div class="event-time">6:00 PM</div>
+      <div>
+        <div class="event-name">Ceremony</div>
+        <div class="event-desc">Baltimore Museum of Art · 10 Art Museum Drive · Black Tie Optional</div>
+      </div>
+    </div>
+    <div class="schedule-event">
+      <div class="event-time">6:30 PM</div>
+      <div>
+        <div class="event-name">Cocktail Hour</div>
+        <div class="event-desc">Baltimore Museum of Art · Cocktails and Light Bites</div>
+      </div>
+    </div>
+    <div class="schedule-event">
+      <div class="event-time">7:30 PM</div>
+      <div>
+        <div class="event-name">Dinner &amp; Dancing</div>
+        <div class="event-desc">Baltimore Museum of Art · Dinner, toasts, and dancing </div>
+      </div>
+    </div>
+    <div class="schedule-event">
+      <div class="event-time">11:30 AM</div>
+      <div>
+        <div class="event-name">Late Night</div>
+        <div class="event-desc">PBR at Power Plant Live! · 34 Market Place · Shuttle from the BMA</div>
+      </div>
+    </div>
+  </div>
+
+ 
+
+</div>

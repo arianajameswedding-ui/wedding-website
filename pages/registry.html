@@ -1,0 +1,67 @@
+<!-- pages/registry.html -->
+<style>
+  .registry-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 24px;
+    margin-top: 16px;
+  }
+  .registry-card {
+    background: var(--warm-white);
+    border: 1px solid rgba(184,154,110,0.2);
+    padding: 36px 28px;
+    text-align: center;
+    border-radius: 2px;
+    transition: box-shadow 0.25s;
+  }
+  .registry-card:hover { box-shadow: 0 8px 32px rgba(42,36,32,0.08); }
+  .registry-icon { font-size: 2rem; margin-bottom: 14px; }
+  .registry-card h3 {
+    font-family: 'Pinyon Script', cursive;
+    font-size: 1.6rem;
+    color: var(--deep);
+    margin-bottom: 10px;
+  }
+  .registry-card p { font-size: 0.88rem; color: var(--light); margin-bottom: 18px; }
+</style>
+
+<div class="page-header">
+  <p class="section-eyebrow">Gifts &amp; Registry</p>
+  <div class="display-script">Registry</div>
+  <p class="body-text">Your presence at our wedding is the greatest gift of all. If you'd like to celebrate us with a gift, we've registered at a few of our favorite places.</p>
+</div>
+
+<div class="content-wrap">
+
+  <div class="registry-grid">
+    <div class="registry-card">
+      <div class="registry-icon">🏡</div>
+      <h3>Williams-Sonoma</h3>
+      <p>Kitchen, cookware, and home entertaining essentials for our new chapter together.</p>
+      <a class="btn-outline" href="#">View Registry</a>
+    </div>
+    <div class="registry-card">
+      <div class="registry-icon">✈️</div>
+      <h3>Honeymoon Fund</h3>
+      <p>Help us experience our dream honeymoon through Zola's cash fund — every contribution means the world.</p>
+      <a class="btn-outline" href="#">Contribute</a>
+    </div>
+    <div class="registry-card">
+      <div class="registry-icon">🛋️</div>
+      <h3>Crate &amp; Barrel</h3>
+      <p>Furniture, bedding, and décor to make our home truly ours.</p>
+      <a class="btn-outline" href="#">View Registry</a>
+    </div>
+  </div>
+
+  <div class="hr-flourish" style="margin-top:52px">
+    <div class="hr-flourish-line"></div>
+    <div class="hr-flourish-center">✦</div>
+    <div class="hr-flourish-line right"></div>
+  </div>
+
+  <p class="body-text" style="text-align:center">
+    If you prefer to give a card or check, please make checks payable to <em>Ariana &amp; James</em> and bring them to the wedding.
+  </p>
+
+</div>

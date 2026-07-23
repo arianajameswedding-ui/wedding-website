@@ -1,0 +1,216 @@
+<!-- pages/home.html -->
+<style>
+  /* ─── HERO ─── */
+  .hero {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+  }
+  .hero-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 30%;
+  }
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to bottom,
+      rgba(20,14,10,0.18) 0%,
+      rgba(20,14,10,0.08) 40%,
+      rgba(20,14,10,0.48) 100%
+    );
+  }
+  .hero-text {
+    position: absolute;
+    bottom: 12%;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    white-space: nowrap;
+    animation: fadeUp 1.4s ease both;
+  }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateX(-50%) translateY(24px); }
+    to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+  }
+  .hero-names {
+    font-family: 'Pinyon Script', cursive;
+    font-size: clamp(4rem, 9vw, 8rem);
+    color: #fff;
+    line-height: 1;
+    text-shadow: 0 2px 28px rgba(0,0,0,0.25);
+    letter-spacing: 0.02em;
+  }
+  .hero-divider {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin: 10px auto;
+    justify-content: center;
+  }
+  .hero-divider-line {
+    width: 60px;
+    height: 1px;
+    background: rgba(255,255,255,0.65);
+  }
+  .hero-divider-dot {
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.8);
+  }
+  .hero-date {
+    font-family: 'Bellefair', serif;
+    font-size: clamp(1rem, 2vw, 1.3rem);
+    color: rgba(255,255,255,0.92);
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+    text-shadow: 0 1px 12px rgba(0,0,0,0.3);
+  }
+  .scroll-cue {
+    position: absolute;
+    bottom: 32px; left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    color: rgba(255,255,255,0.65);
+    font-size: 0.68rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    animation: fadeIn 2s 1s ease both;
+  }
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+  .scroll-cue svg { animation: bounce 2s infinite; }
+  @keyframes bounce {
+    0%,100% { transform: translateY(0); }
+    50%     { transform: translateY(6px); }
+  }
+
+  /* ─── WELCOME SECTION ─── */
+  .home-welcome {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 90px 32px 80px;
+    text-align: center;
+  }
+
+  /* ─── COUNTDOWN ─── */
+  .countdown-strip {
+    background: var(--deep);
+    padding: 56px 32px;
+    text-align: center;
+  }
+  .countdown-eyebrow {
+    font-size: 0.7rem;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--gold-light);
+    margin-bottom: 32px;
+  }
+  .countdown-grid {
+    display: flex;
+    gap: 0;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .countdown-unit {
+    padding: 0 36px;
+    border-right: 1px solid rgba(255,255,255,0.1);
+  }
+  .countdown-unit:last-child { border-right: none; }
+  .countdown-num {
+    font-family: 'Bellefair', serif;
+    font-size: clamp(2.4rem, 5vw, 3.8rem);
+    color: #fff;
+    line-height: 1;
+    display: block;
+  }
+  .countdown-label {
+    font-size: 0.68rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--gold-light);
+    margin-top: 8px;
+    display: block;
+  }
+
+  /* ─── DETAILS STRIP ─── */
+  .details-strip {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 70px 32px 100px;
+    text-align: center;
+  }
+
+  @media (max-width: 700px) {
+    .hero-text { white-space: normal; width: 90%; }
+    .countdown-unit { padding: 0 18px; }
+  }
+</style>
+
+<!-- Hero -->
+<section class="hero">
+  <img class="hero-img" src="assets/hero.jpg" alt="Ariana & James at Lake Como">
+  <div class="hero-overlay"></div>
+  <div class="hero-text">
+    <div class="hero-names">Ariana &amp; James</div>
+    <div class="hero-divider">
+      <div class="hero-divider-line"></div>
+      <div class="hero-divider-dot"></div>
+      <div class="hero-divider-line"></div>
+    </div>
+    <div class="hero-date">June 5, 2027</div>
+  </div>
+  <div class="scroll-cue">
+    <svg width="16" height="22" viewBox="0 0 16 22" fill="none">
+      <path d="M8 1v16M2 13l6 6 6-6" stroke="rgba(255,255,255,0.7)" stroke-width="1.2" stroke-linecap="round"/>
+    </svg>
+  </div>
+</section>
+
+<!-- Welcome -->
+<section class="home-welcome">
+  <p class="section-eyebrow">We're getting married</p>
+  <div class="display-script">Join us as we celebrate</div>
+  <p class="body-text">
+    We are so thrilled to share this moment with the people we love most.
+   
+  </p>
+</section>
+
+<!-- Countdown -->
+<div class="countdown-strip">
+  <p class="countdown-eyebrow">Counting down to forever</p>
+  <div class="countdown-grid" id="countdown">
+    <div class="countdown-unit">
+      <span class="countdown-num" id="cd-days">---</span>
+      <span class="countdown-label">Days</span>
+    </div>
+    <div class="countdown-unit">
+      <span class="countdown-num" id="cd-hours">--</span>
+      <span class="countdown-label">Hours</span>
+    </div>
+    <div class="countdown-unit">
+      <span class="countdown-num" id="cd-mins">--</span>
+      <span class="countdown-label">Minutes</span>
+    </div>
+    <div class="countdown-unit">
+      <span class="countdown-num" id="cd-secs">--</span>
+      <span class="countdown-label">Seconds</span>
+    </div>
+  </div>
+</div>
+
+<!-- Details -->
+<section class="details-strip">
+  <p class="section-eyebrow">The Details</p>
+  <div class="display-script">Baltimore, MD</div>
+  <p class="body-text" style="margin-top:14px">
+    The Baltimore Museum of Art · Baltimore, MD<br>
+    Ceremony at 6:00 PM · Reception to follow
+  </p>
+</section>
